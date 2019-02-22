@@ -24,8 +24,14 @@ void linked_prepend(struct LinkedList **list, void *elem);
 /* Remove and return first element of list */
 void *linked_poll(struct LinkedList **list);
 
-/* Remove and return n'th item of list */
+/* Remove and return n'th element of list */
 void *linked_remove(struct LinkedList **list, int index);
+
+/* Return n'th element of list */
+void *linked_get(struct LinkedList *list, int index);
+
+/* Return first element of list */
+void *linked_peek(struct LinkedList *list);
 
 /* Returns length of list */
 int linked_length(struct LinkedList *list);

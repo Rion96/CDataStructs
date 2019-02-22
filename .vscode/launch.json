@@ -9,6 +9,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/linked.exe",
+            "preLaunchTask": "linked list (debug)",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",

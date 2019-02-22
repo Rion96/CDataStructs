@@ -25,12 +25,12 @@ void linked_destroy(struct LinkedList **list)
 
 void linked_append(struct LinkedList **list, void *elem)
 {
-    if ((*list) == NULL)
+    struct LinkedList *curr = *list;
+    if (curr == NULL)
     {
         *list = linked_init(elem);
         return;
     }
-    struct LinkedList *curr = *list;
     struct LinkedList *node = malloc(sizeof(struct LinkedList));
     node->elem = elem;
     node->next = NULL;
@@ -51,6 +51,10 @@ void linked_prepend(struct LinkedList **list, void *elem)
 
 void *linked_poll(struct LinkedList **list)
 {
+    if (list == NULL)
+    {
+        return NULL;
+    }
     struct LinkedList *curr = *list;
     struct LinkedList *next = curr->next;
     void *elem = curr->elem;
@@ -59,9 +63,44 @@ void *linked_poll(struct LinkedList **list)
     return elem;
 }
 
+void *linked_peek(struct LinkedList *list)
+{
+    if (list == NULL)
+    {
+        return NULL;
+    }
+    return list->elem;
+}
+
+void *linked_get(struct LinkedList *list, int index)
+{
+    if (list == NULL)
+    {
+        return NULL;
+    }
+    if (index == 0)
+    {
+        return linked_peek(list);
+    }
+    while (index > 0 && list->next != NULL)
+    {
+        list = list->next;
+        index--;
+    }
+    if (index > 0)
+    {
+        return NULL;
+    }
+    return list->elem;
+}
+
 void *linked_remove(struct LinkedList **list, int index)
 {
     struct LinkedList *curr = *list;
+    if (curr == NULL)
+    {
+        return NULL;
+    }
     if (index == 0)
     {
         return linked_poll(list);

@@ -17,6 +17,7 @@ int main(int argc, char const *argv[])
         *value = i;
         linked_append(&list, value);
     }
+    printf("%d\n", *((int *)linked_get(list, 8)));
     while (linked_length(list) > 0)
     {
         printf("%d\n", *((int *)linked_poll(&list)));
