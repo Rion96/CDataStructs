@@ -122,12 +122,8 @@ void *linked_remove(struct LinkedList **list, int index)
 
 int linked_length(struct LinkedList *list)
 {
-    if (list == NULL)
-    {
-        return 0;
-    }
-    int length = 1;
-    while (list->next != NULL)
+    int length = 0;
+    while (list != NULL)
     {
         list = list->next;
         length++;
