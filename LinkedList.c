@@ -1,9 +1,15 @@
 #include "LinkedList.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 struct LinkedList *linked_init(void *first_elem)
 {
     struct LinkedList *list = malloc(sizeof(struct LinkedList));
+    if (list == NULL)
+    {
+        fprintf(stderr, "Error: Could not initialize LinkedList struct!\n");
+        return NULL;
+    }
     list->elem = first_elem;
     list->next = NULL;
     return list;
@@ -31,6 +37,11 @@ void linked_append(struct LinkedList **list, void *elem)
         return;
     }
     struct LinkedList *node = malloc(sizeof(struct LinkedList));
+    if (node == NULL)
+    {
+        fprintf(stderr, "Error: Could not allocate memory for LinkedList!\n");
+        return;
+    }
     node->elem = elem;
     node->next = NULL;
     while (curr->next != NULL)
@@ -43,6 +54,11 @@ void linked_append(struct LinkedList **list, void *elem)
 void linked_prepend(struct LinkedList **list, void *elem)
 {
     struct LinkedList *node = malloc(sizeof(struct LinkedList));
+    if (node == NULL)
+    {
+        fprintf(stderr, "Error: Could not allocate memory for LinkedList!\n");
+        return;
+    }
     node->elem = elem;
     node->next = (*list);
     *list = node;
@@ -115,6 +131,11 @@ void linked_add(struct LinkedList **list, void *elem, int index)
         index--;
     }
     struct LinkedList *next = malloc(sizeof(struct LinkedList));
+    if (next == NULL)
+    {
+        fprintf(stderr, "Error: Could not allocate memory for LinkedList!\n");
+        return;
+    }
     next->elem = elem;
     next->next = curr->next;
     curr->next = next;

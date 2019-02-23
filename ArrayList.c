@@ -1,7 +1,9 @@
 #include "ArrayList.h"
 #include <stdlib.h>
 #include <string.h>
-#define MINSIZE 16
+#include <stdio.h>
+#define MINSIZE 16 /* Minimum size for shrink operations to take place */
+#define FACTOR 2   /* Shrink/expand factor */
 
 struct ArrayList *array_init(size_t size)
 {
@@ -10,7 +12,17 @@ struct ArrayList *array_init(size_t size)
         return NULL;
     }
     struct ArrayList *list = malloc(sizeof(struct ArrayList));
+    if (list == NULL)
+    {
+        fprintf(stderr, "Error: Could not initialize ArrayList struct!\n");
+        return NULL;
+    }
     list->array = malloc(sizeof(void *) * size);
+    if (list->array == NULL)
+    {
+        fprintf(stderr, "Error: Could not create ArrayList!\n");
+        return NULL;
+    }
     list->max_size = size;
     list->size = 0;
     return list;
@@ -26,28 +38,38 @@ void array_destroy(struct ArrayList *list)
     free(list);
 }
 
-void array_grow(struct ArrayList *list)
+static void array_grow(struct ArrayList *list)
 {
     if (list == NULL)
     {
         return;
     }
-    void **array = malloc(sizeof(void *) * list->max_size * 2);
+    void **array = malloc(sizeof(void *) * list->max_size * FACTOR);
+    if (array == NULL)
+    {
+        fprintf(stderr, "Error: Could not expand ArrayList!\n");
+        return;
+    }
     memcpy(array, list->array, sizeof(void *) * list->max_size);
     list->array = array;
-    list->max_size *= 2;
+    list->max_size *= FACTOR;
 }
 
-void array_shrink(struct ArrayList *list)
+static void array_shrink(struct ArrayList *list)
 {
     if (list == NULL)
     {
         return;
     }
-    void **array = malloc(sizeof(void *) * list->max_size / 2);
-    memcpy(array, list->array, sizeof(void *) * list->max_size / 2);
+    void **array = malloc(sizeof(void *) * list->max_size / FACTOR);
+    if (array == NULL)
+    {
+        fprintf(stderr, "Error: Could not shrink ArrayList!\n");
+        return;
+    }
+    memcpy(array, list->array, sizeof(void *) * list->max_size / FACTOR);
     list->array = array;
-    list->max_size /= 2;
+    list->max_size /= FACTOR;
 }
 
 void array_append(struct ArrayList *list, void *elem)
@@ -59,6 +81,10 @@ void array_append(struct ArrayList *list, void *elem)
     if (list->size == list->max_size)
     {
         array_grow(list);
+    }
+    if (list->size == list->max_size)
+    {
+        return;
     }
     list->array[list->size] = elem;
     list->size++;
@@ -110,6 +136,10 @@ void array_add(struct ArrayList *list, void *elem, int index)
     if (list->size == list->max_size)
     {
         array_grow(list);
+    }
+    if (list->size == list->max_size)
+    {
+        return;
     }
     for (int i = list->size; i > index; i--)
     {

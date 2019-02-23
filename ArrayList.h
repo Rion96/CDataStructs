@@ -20,12 +20,6 @@ struct ArrayList *array_init(size_t size);
  */
 void array_destroy(struct ArrayList *list);
 
-/* Helper function for expanding array size */
-void array_grow(struct ArrayList *list);
-
-/* Helper function for shrinking array size */
-void array_shrink(struct ArrayList *list);
-
 /* Insert element to end of list. */
 void array_append(struct ArrayList *list, void *elem);
 
