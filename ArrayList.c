@@ -13,7 +13,7 @@ struct ArrayList *array_init(size_t size)
     list->array = malloc(sizeof(void *) * size);
     list->max_size = size;
     list->size = 0;
-    return list;    
+    return list;
 }
 
 void array_destroy(struct ArrayList *list)
@@ -111,10 +111,11 @@ void array_add(struct ArrayList *list, void *elem, int index)
     {
         array_grow(list);
     }
-    for (int i = index; i < list->size; i++)
+    for (int i = list->size; i > index; i--)
     {
-        list->array[i + 1] = list->array[i];
+        list->array[i] = list->array[i - 1];
     }
+    list->array[index] = elem;
     list->size++;
 }
 
