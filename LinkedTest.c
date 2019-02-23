@@ -2,6 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+void print_int(void *e)
+{
+    int *i = (int *)e;
+    printf("%d\n", (*i));
+}
+
 int main(int argc, char const *argv[])
 {
     struct LinkedList *list = linked_init("B");
@@ -17,10 +23,8 @@ int main(int argc, char const *argv[])
         *value = i;
         linked_append(&list, value);
     }
-    printf("%d\n", *((int *)linked_get(list, 8)));
-    while (linked_length(list) > 0)
-    {
-        printf("%d\n", *((int *)linked_poll(&list)));
-    }
+    linked_foreach(list, &print_int);
+    linked_foreach(list, &free);
+    linked_destroy(&list);
     return 0;
 }

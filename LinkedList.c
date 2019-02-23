@@ -13,13 +13,12 @@ void linked_destroy(struct LinkedList **list)
 {
     struct LinkedList *curr = *list;
     struct LinkedList *next = NULL;
-    while (curr->next != NULL)
+    while (curr != NULL)
     {
         next = curr->next;
         free(curr);
         curr = next;
     }
-    free(curr);
     *list = NULL;
 }
 
@@ -134,4 +133,13 @@ int linked_length(struct LinkedList *list)
         length++;
     }
     return length;
+}
+
+void linked_foreach(struct LinkedList *list, void (*f)(void *elem))
+{
+    while (list != NULL)
+    {
+        (*f)(list->elem);
+        list = list->next;
+    }
 }

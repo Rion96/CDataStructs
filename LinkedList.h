@@ -6,8 +6,7 @@ struct LinkedList {
     struct LinkedList *next;
 };
 
-/**
- * Constructor for LinkedList structure,
+/* Constructor for LinkedList structure,
  * demands first element of list
  */
 struct LinkedList *linked_init(void *first_elem);
@@ -35,5 +34,8 @@ void *linked_peek(struct LinkedList *list);
 
 /* Returns length of list */
 int linked_length(struct LinkedList *list);
+
+/* Apply function to elements of list */
+void linked_foreach(struct LinkedList *list, void (*f)(void *elem));
 
 #endif /* LINKEDLIST_H */
