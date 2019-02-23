@@ -19,6 +19,7 @@ int main(int argc, char *argv[])
     struct LinkedList *list = linked_init("B");
     linked_append(&list, "C");
     linked_prepend(&list, "A");
+    linked_prepend(&list, "9");
     while (linked_length(list) > 0)
     {
         printf("%s\n", (char *)linked_poll(&list));
