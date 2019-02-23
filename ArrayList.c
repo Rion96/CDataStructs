@@ -53,6 +53,7 @@ static void array_grow(struct ArrayList *list)
     {
         array[i] = list->array[i];
     }
+    free(list->array);
     list->array = array;
     list->max_size *= FACTOR;
 }
@@ -77,6 +78,7 @@ static void array_shrink(struct ArrayList *list)
     {
         array[i] = list->array[i];
     }
+    free(list->array);
     list->array = array;
     list->max_size /= FACTOR;
 }
