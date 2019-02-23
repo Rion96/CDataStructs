@@ -1,6 +1,5 @@
 #include "ArrayList.h"
 #include <stdlib.h>
-#include <string.h>
 #include <stdio.h>
 #define MINSIZE 16 /* Minimum size for shrink operations to take place */
 #define FACTOR 2   /* Shrink/expand factor */
@@ -50,7 +49,10 @@ static void array_grow(struct ArrayList *list)
         fprintf(stderr, "Error: Could not expand ArrayList!\n");
         return;
     }
-    memcpy(array, list->array, sizeof(void *) * list->max_size);
+    for (int i = 0; i < list->size; i++)
+    {
+        array[i] = list->array[i];
+    }
     list->array = array;
     list->max_size *= FACTOR;
 }
@@ -61,13 +63,20 @@ static void array_shrink(struct ArrayList *list)
     {
         return;
     }
+    if (list->size * 2 > list->max_size)
+    {
+        return;
+    }
     void **array = malloc(sizeof(void *) * list->max_size / FACTOR);
     if (array == NULL)
     {
         fprintf(stderr, "Error: Could not shrink ArrayList!\n");
         return;
     }
-    memcpy(array, list->array, sizeof(void *) * list->max_size / FACTOR);
+    for (int i = 0; i < list->size; i++)
+    {
+        array[i] = list->array[i];
+    }
     list->array = array;
     list->max_size /= FACTOR;
 }
@@ -132,6 +141,10 @@ void array_add(struct ArrayList *list, void *elem, int index)
     if (index < 0 || index > list->size)
     {
         return;
+    }
+    if (index == list->size)
+    {
+        array_append(list, elem);
     }
     if (list->size == list->max_size)
     {

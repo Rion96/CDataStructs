@@ -1,5 +1,6 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
+#include <stddef.h>
 
 struct LinkedList
 {
@@ -42,7 +43,7 @@ void *linked_get(struct LinkedList *list, int index);
 void *linked_peek(struct LinkedList *list);
 
 /* Returns length of list. */
-int linked_length(struct LinkedList *list);
+size_t linked_length(struct LinkedList *list);
 
 /* Apply function to elements of list. */
 void linked_foreach(struct LinkedList *list, void (*f)(void *elem));

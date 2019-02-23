@@ -112,7 +112,7 @@ void *linked_get(struct LinkedList *list, int index)
 void linked_add(struct LinkedList **list, void *elem, int index)
 {
     struct LinkedList *curr = *list;
-    int length = linked_length(curr);
+    size_t length = linked_length(curr);
     if (index < 0 || index > length)
     {
         return;
@@ -168,9 +168,9 @@ void *linked_remove(struct LinkedList **list, int index)
     return elem;
 }
 
-int linked_length(struct LinkedList *list)
+size_t linked_length(struct LinkedList *list)
 {
-    int length = 0;
+    size_t length = 0;
     while (list != NULL)
     {
         list = list->next;
