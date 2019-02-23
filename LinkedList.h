@@ -23,7 +23,7 @@ void linked_destroy(struct LinkedList **list);
  */
 void linked_append(struct LinkedList **list, void *elem);
 
-/* Insert element to beginning of list (make new head of list). */
+/* Insert element to beginning of list. */
 void linked_prepend(struct LinkedList **list, void *elem);
 
 /* Remove and return first element of list. */

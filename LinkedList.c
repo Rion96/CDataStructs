@@ -101,7 +101,8 @@ void linked_add(struct LinkedList **list, void *elem, int index)
     {
         return;
     }
-    if (index == 0){
+    if (index == 0)
+    {
         linked_prepend(list, elem);
     }
     if (index == length)
