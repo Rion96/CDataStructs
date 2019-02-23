@@ -30,6 +30,8 @@ int main(int argc, char *argv[])
         *value = i;
         linked_append(&list, value);
     }
+    int x = 5;
+    linked_add(&list, &x, 7);
 
     printf("List contents:\n");
     linked_foreach(list, &print_int);

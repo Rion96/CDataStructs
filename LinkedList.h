@@ -32,6 +32,9 @@ void *linked_poll(struct LinkedList **list);
 /* Remove and return n'th element of list. */
 void *linked_remove(struct LinkedList **list, int index);
 
+/* Add element to n'th index of list. */
+void linked_add(struct LinkedList **list, void *elem, int index);
+
 /* Return n'th element of list. */
 void *linked_get(struct LinkedList *list, int index);
 

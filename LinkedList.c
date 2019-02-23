@@ -93,6 +93,32 @@ void *linked_get(struct LinkedList *list, int index)
     return list->elem;
 }
 
+void linked_add(struct LinkedList **list, void *elem, int index)
+{
+    struct LinkedList *curr = *list;
+    int length = linked_length(curr);
+    if (index < 0 || index > length)
+    {
+        return;
+    }
+    if (index == 0){
+        linked_prepend(list, elem);
+    }
+    if (index == length)
+    {
+        linked_append(list, elem);
+    }
+    while (index > 1)
+    {
+        curr = curr->next;
+        index--;
+    }
+    struct LinkedList *next = malloc(sizeof(struct LinkedList));
+    next->elem = elem;
+    next->next = curr->next;
+    curr->next = next;
+}
+
 void *linked_remove(struct LinkedList **list, int index)
 {
     struct LinkedList *curr = *list;
