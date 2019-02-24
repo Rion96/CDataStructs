@@ -45,3 +45,21 @@ void iprint(void *ptr)
     int *i = (int *)ptr;
     printf("%d\n", (*i));
 }
+
+int icomp(void *ptr1, void *ptr2)
+{
+    int i1 = iget(ptr1);
+    int i2 = iget(ptr2);
+    if (i1 < i2)
+    {
+        return -1;
+    }
+    if (i1 == i2)
+    {
+        return 0;
+    }
+    if (i1 > i2)
+    {
+        return 1;
+    }
+}

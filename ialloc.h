@@ -6,5 +6,6 @@ int *ialloc(int val);
 int iget(void *ptr);
 int ifree(void *ptr);
 void iprint(void *ptr);
+int icomp(void *ptr1, void *ptr2);
 
 #endif /* IALLOC_H */
