@@ -119,12 +119,12 @@ void *array_remove(struct ArrayList *list, int index)
     {
         return NULL;
     }
-    if (index < 0 || index >= list->max_size)
+    if (index < 0 || index >= list->size)
     {
         return NULL;
     }
     void *elem = list->array[index];
-    for (int i = index; i < list->size; i++)
+    for (int i = index; i < list->size - 1; i++)
     {
         list->array[i] = list->array[i + 1];
     }
@@ -173,7 +173,7 @@ void *array_get(struct ArrayList *list, int index)
     {
         return NULL;
     }
-    if (index < 0 || index > list->size)
+    if (index < 0 || index >= list->size)
     {
         return NULL;
     }

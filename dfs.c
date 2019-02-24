@@ -11,7 +11,7 @@ typedef struct LinkedList LinkedList;
 typedef struct ArrayList ArrayList;
 
 ArrayList **adj;   /* Adjacency lists */
-LinkedList *stack; /* Stack for DFS  */
+LinkedList *stack; /* Stack for DFS */
 
 void dfs(int start)
 {
