@@ -187,7 +187,7 @@ size_t array_length(struct ArrayList *list)
 
 void array_foreach(struct ArrayList *list, void (*f)(void *e))
 {
-    if (list == NULL)
+    if (list == NULL || f == NULL)
     {
         return;
     }

@@ -56,7 +56,6 @@ static void sift_up(struct BinaryHeap *heap, int index)
         {
             break;
         }
-        
     }
 }
 
@@ -84,7 +83,6 @@ static void sift_down(struct BinaryHeap *heap, int index)
         {
             break;
         }
-        
     }
 }
 

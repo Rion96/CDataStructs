@@ -181,6 +181,10 @@ size_t linked_length(struct LinkedList *list)
 
 void linked_foreach(struct LinkedList *list, void (*f)(void *elem))
 {
+    if (list == NULL || f == NULL)
+    {
+        return;
+    }
     while (list != NULL)
     {
         (*f)(list->elem);

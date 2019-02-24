@@ -75,7 +75,7 @@ void matrix_replace(struct Matrix *matrix, size_t row, size_t col, void *elem)
 
 void matrix_foreach(struct Matrix *matrix, void (*f)(void *elem))
 {
-    if (matrix == NULL)
+    if (matrix == NULL || f == NULL)
     {
         return;
     }
