@@ -3,6 +3,7 @@
 #include <stdbool.h>
 #include "ArrayList.h"
 #include "LinkedList.h"
+#include "ialloc.h"
 #define N 16
 /* Simple DFS graph traversal to show ArrayList and LinkedList in action */
 
@@ -14,25 +15,19 @@ LinkedList *stack; /* Stack for DFS  */
 
 void dfs(int start)
 {
-    int *x = malloc(sizeof(int *));
-    *x = start;
     bool *visited = calloc(N, sizeof(bool));
-    stack = linked_init(x);
+    stack = linked_init(ialloc(start));
     while (linked_length(stack) > 0)
     {
-        int *n = (int *)linked_poll(&stack);
-        int node = *n;
-        free(n);
+        int node = ifree(linked_poll(&stack));
         visited[node] = true;
         printf("%d\n", node);
         for (int i = 0; i < array_length(adj[node]); i++)
         {
-            int neighbor = *((int *)array_get(adj[node], i));
+            int neighbor = iget(array_get(adj[node], i));
             if (!visited[neighbor])
             {
-                int *j = malloc(sizeof(int *));
-                *j = neighbor;
-                linked_prepend(&stack, j);
+                linked_prepend(&stack, ialloc(neighbor));
             }
         }
     }
@@ -42,9 +37,7 @@ void dfs(int start)
 
 void addEdge(int from, int to)
 {
-    int *i = malloc(sizeof(int));
-    *i = to;
-    array_append(adj[from], i);
+    array_append(adj[from], ialloc(to));
 }
 
 int main(int argc, char const *argv[])

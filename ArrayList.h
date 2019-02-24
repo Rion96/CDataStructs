@@ -4,8 +4,9 @@
 
 struct ArrayList
 {
-    size_t max_size;
-    size_t size;
+    size_t init_size;   /* Initial size of array. Array will not shrink below this size. */
+    size_t max_size;    /* Current maximum size of array. Array will need to expand if reached. */
+    size_t size;        /* Current size of array. */
     void **array;
 };
 

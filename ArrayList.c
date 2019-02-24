@@ -22,6 +22,7 @@ struct ArrayList *array_init(size_t size)
         fprintf(stderr, "Error: Could not create ArrayList!\n");
         return NULL;
     }
+    list->init_size = size;
     list->max_size = size;
     list->size = 0;
     return list;
@@ -64,7 +65,8 @@ static void array_shrink(struct ArrayList *list)
     {
         return;
     }
-    if (list->size * 2 > list->max_size)
+    if (list->max_size < MINSIZE || list->max_size == list->init_size 
+        || list->size * FACTOR > list->max_size)
     {
         return;
     }
@@ -127,7 +129,8 @@ void *array_remove(struct ArrayList *list, int index)
         list->array[i] = list->array[i + 1];
     }
     list->size--;
-    if (list->max_size > MINSIZE && list->max_size > list->size * 2)
+    if (list->max_size > MINSIZE && list->max_size > list->init_size
+        && list->max_size > list->size * FACTOR)
     {
         array_shrink(list);
     }
