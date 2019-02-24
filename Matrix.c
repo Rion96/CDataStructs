@@ -4,6 +4,10 @@
 
 struct Matrix *matrix_init(size_t rows, size_t cols)
 {
+    if (rows <= 0 || cols <= 0)
+    {
+        return NULL;
+    }
     struct Matrix *matrix = malloc(sizeof(struct Matrix));
     if (matrix == NULL)
     {

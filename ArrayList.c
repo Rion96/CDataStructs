@@ -19,6 +19,7 @@ struct ArrayList *array_init(size_t size)
     list->array = malloc(sizeof(void *) * size);
     if (list->array == NULL)
     {
+        free(list);
         fprintf(stderr, "Error: Could not create ArrayList!\n");
         return NULL;
     }
@@ -44,17 +45,12 @@ static void array_grow(struct ArrayList *list)
     {
         return;
     }
-    void **array = malloc(sizeof(void *) * list->max_size * FACTOR);
+    void **array = realloc(list->array, sizeof(void *) * list->max_size * FACTOR);
     if (array == NULL)
     {
         fprintf(stderr, "Error: Could not expand ArrayList!\n");
         return;
     }
-    for (int i = 0; i < list->size; i++)
-    {
-        array[i] = list->array[i];
-    }
-    free(list->array);
     list->array = array;
     list->max_size *= FACTOR;
 }
@@ -70,17 +66,12 @@ static void array_shrink(struct ArrayList *list)
     {
         return;
     }
-    void **array = malloc(sizeof(void *) * list->max_size / FACTOR);
+    void **array = realloc(list->array, sizeof(void *) * list->max_size * FACTOR);
     if (array == NULL)
     {
         fprintf(stderr, "Error: Could not shrink ArrayList!\n");
         return;
     }
-    for (int i = 0; i < list->size; i++)
-    {
-        array[i] = list->array[i];
-    }
-    free(list->array);
     list->array = array;
     list->max_size /= FACTOR;
 }
