@@ -15,6 +15,7 @@ struct Matrix *matrix_init(size_t rows, size_t cols)
     matrix->array = calloc(rows * cols, sizeof(void *));
     if (matrix->array == NULL)
     {
+        free(matrix);
         fprintf(stderr, "Error: Could not allocate Matrix array!\n");
         return NULL;
     }
