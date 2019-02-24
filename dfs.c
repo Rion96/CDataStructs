@@ -6,7 +6,6 @@
 #include "ialloc.h"
 #define N 16
 /* Simple DFS graph traversal to show ArrayList and LinkedList in action */
-
 typedef struct LinkedList LinkedList;
 typedef struct ArrayList ArrayList;
 
