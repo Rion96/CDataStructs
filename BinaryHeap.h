@@ -4,11 +4,11 @@
 
 struct BinaryHeap
 {
-    size_t init_size;
-    size_t max_size;
-    size_t size;
+    size_t init_size;   /* Initial size of heap. Heap will not shrink below this size. */
+    size_t max_size;    /* Current maximum size of heap. Heap will need to expand if reached. */
+    size_t size;        /* Current size of heap */
     void **array;
-    int (*comp)(void *, void *);
+    int (*comp)(void *, void *); /* Compare function */
 };
 
 /* Constructor for BinaryHeap structure,
