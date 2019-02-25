@@ -66,7 +66,7 @@ static void array_shrink(struct ArrayList *list)
     {
         return;
     }
-    void **array = realloc(list->array, sizeof(void *) * list->max_size * FACTOR);
+    void **array = realloc(list->array, sizeof(void *) * list->max_size / FACTOR);
     if (array == NULL)
     {
         fprintf(stderr, "Error: Could not shrink ArrayList!\n");

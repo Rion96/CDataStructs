@@ -113,7 +113,7 @@ static void heap_shrink(struct BinaryHeap *heap)
     {
         return;
     }
-    void **array = realloc(heap->array, sizeof(void *) * heap->max_size * FACTOR);
+    void **array = realloc(heap->array, sizeof(void *) * heap->max_size / FACTOR);
     if (array == NULL)
     {
         fprintf(stderr, "Error: Could not shrink Arrayheap!\n");
