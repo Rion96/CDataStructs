@@ -141,6 +141,7 @@ void array_add(struct ArrayList *list, void *elem, int index)
     if (index == list->size)
     {
         array_append(list, elem);
+        return;
     }
     if (list->size == list->max_size)
     {
