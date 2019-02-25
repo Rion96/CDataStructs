@@ -164,6 +164,11 @@ void *heap_poll(struct BinaryHeap *heap)
     {
         return NULL;
     }
+    if (heap->max_size > MINSIZE && heap->max_size > heap->init_size
+        && heap->max_size > heap->size * FACTOR)
+    {
+        heap_shrink(heap);
+    }
     if (heap->size == 0)
     {
         return NULL;

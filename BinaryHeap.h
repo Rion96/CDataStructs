@@ -12,7 +12,7 @@ struct BinaryHeap
 };
 
 /* Constructor for BinaryHeap structure,
- * demands initial size of heap.
+ * demands initial size of heap and compare function.
  */
 struct BinaryHeap *heap_init(size_t size, int (*comp)(void *, void *));
 
