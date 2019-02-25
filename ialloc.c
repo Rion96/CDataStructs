@@ -58,8 +58,5 @@ int icomp(void *ptr1, void *ptr2)
     {
         return 0;
     }
-    if (i1 > i2)
-    {
-        return 1;
-    }
+    return 1;
 }
