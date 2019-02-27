@@ -93,16 +93,12 @@ void *linked_get(struct LinkedList *list, size_t index)
     {
         return NULL;
     }
-    if (index == 0)
-    {
-        return linked_peek(list);
-    }
-    while (index > 0 && list->next != NULL)
+    while (index > 0 && list != NULL)
     {
         list = list->next;
         index--;
     }
-    if (index > 0)
+    if (index > 0 || list == NULL)
     {
         return NULL;
     }
@@ -112,23 +108,18 @@ void *linked_get(struct LinkedList *list, size_t index)
 void linked_add(struct LinkedList **list, void *elem, size_t index)
 {
     struct LinkedList *curr = *list;
-    size_t length = linked_length(curr);
-    if (index < 0 || index > length)
-    {
-        return;
-    }
     if (index == 0)
     {
         linked_prepend(list, elem);
     }
-    if (index == length)
-    {
-        linked_append(list, elem);
-    }
-    while (index > 1)
+    while (curr != NULL && index > 1)
     {
         curr = curr->next;
         index--;
+    }
+    if (index > 1 || curr == NULL)
+    {
+        return;
     }
     struct LinkedList *next = malloc(sizeof(struct LinkedList));
     if (next == NULL)
@@ -148,7 +139,7 @@ void linked_put(struct LinkedList *list, void *elem, size_t index)
         list = list->next;
         index--;
     }
-    if (index > 0)
+    if (index > 0 || list == NULL)
     {
         return;
     }
@@ -162,7 +153,7 @@ void linked_free(struct LinkedList *list, size_t index)
         list = list->next;
         index--;
     }
-    if (index > 0)
+    if (index > 0 || list == NULL)
     {
         return;
     }

@@ -1,6 +1,7 @@
 #include "LinkedList.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include "ialloc.h"
 
 void print_int(void *e)
 {
@@ -32,7 +33,9 @@ int main(int argc, char *argv[])
         linked_append(&list, value);
     }
     int x = 5;
-    linked_add(&list, &x, 7);
+    linked_add(&list, &x, 8);
+    linked_remove(&list, 8);
+    //printf("-->%d\n", iget(linked_get(list, 9)));
 
     printf("List contents:\n");
     linked_foreach(list, &print_int);
