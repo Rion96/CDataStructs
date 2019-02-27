@@ -31,13 +31,24 @@ void linked_prepend(struct LinkedList **list, void *elem);
 void *linked_poll(struct LinkedList **list);
 
 /* Remove and return n'th element of list. */
-void *linked_remove(struct LinkedList **list, int index);
+void *linked_remove(struct LinkedList **list, size_t index);
 
 /* Add element to n'th index of list. */
-void linked_add(struct LinkedList **list, void *elem, int index);
+void linked_add(struct LinkedList **list, void *elem, size_t index);
+
+/* Put element in n'th index of list. */
+void linked_put(struct LinkedList *list, void *elem, size_t index);
+
+/* Frees element in n'th index of list. */
+void linked_free(struct LinkedList *list, size_t index);
+
+/* Replaces element in n'th index of list.
+ * Frees previous element.
+ */
+void linked_replace(struct LinkedList *list, void *elem, size_t index);
 
 /* Return n'th element of list. */
-void *linked_get(struct LinkedList *list, int index);
+void *linked_get(struct LinkedList *list, size_t index);
 
 /* Return first element of list. */
 void *linked_peek(struct LinkedList *list);

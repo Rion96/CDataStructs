@@ -31,13 +31,24 @@ void array_prepend(struct ArrayList *list, void *elem);
 void *array_poll(struct ArrayList *list);
 
 /* Remove and return n'th element of list. */
-void *array_remove(struct ArrayList *list, int index);
+void *array_remove(struct ArrayList *list, size_t index);
 
 /* Add element to n'th index of list. */
-void array_add(struct ArrayList *list, void *elem, int index);
+void array_add(struct ArrayList *list, void *elem, size_t index);
+
+/* Put element in n'th index of list. */
+void array_put(struct ArrayList *list, void *elem, size_t index);
+
+/* Frees element in n'th index of list. */
+void array_free(struct ArrayList *list, size_t index);
+
+/* Replaces element in n'th index of list.
+ * Frees previous element.
+ */
+void array_replace(struct ArrayList *list, void *elem, size_t index);
 
 /* Return n'th element of list. */
-void *array_get(struct ArrayList *list, int index);
+void *array_get(struct ArrayList *list, size_t index);
 
 /* Return first element of list. */
 void *array_peek(struct ArrayList *list);

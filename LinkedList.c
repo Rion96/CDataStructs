@@ -87,7 +87,7 @@ void *linked_peek(struct LinkedList *list)
     return list->elem;
 }
 
-void *linked_get(struct LinkedList *list, int index)
+void *linked_get(struct LinkedList *list, size_t index)
 {
     if (list == NULL)
     {
@@ -109,7 +109,7 @@ void *linked_get(struct LinkedList *list, int index)
     return list->elem;
 }
 
-void linked_add(struct LinkedList **list, void *elem, int index)
+void linked_add(struct LinkedList **list, void *elem, size_t index)
 {
     struct LinkedList *curr = *list;
     size_t length = linked_length(curr);
@@ -141,7 +141,41 @@ void linked_add(struct LinkedList **list, void *elem, int index)
     curr->next = next;
 }
 
-void *linked_remove(struct LinkedList **list, int index)
+void linked_put(struct LinkedList *list, void *elem, size_t index)
+{
+    while (list != NULL && index > 0)
+    {
+        list = list->next;
+        index--;
+    }
+    if (index > 0)
+    {
+        return;
+    }
+    list->elem = elem;
+}
+
+void linked_free(struct LinkedList *list, size_t index)
+{
+    while (list != NULL && index > 0)
+    {
+        list = list->next;
+        index--;
+    }
+    if (index > 0)
+    {
+        return;
+    }
+    free(list->elem);
+}
+
+void linked_replace(struct LinkedList *list, void *elem, size_t index)
+{
+    linked_free(list, index);
+    linked_put(list, elem, index);
+}
+
+void *linked_remove(struct LinkedList **list, size_t index)
 {
     struct LinkedList *curr = *list;
     if (curr == NULL)

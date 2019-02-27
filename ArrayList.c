@@ -104,7 +104,7 @@ void *array_poll(struct ArrayList *list)
     return array_remove(list, 0);
 }
 
-void *array_remove(struct ArrayList *list, int index)
+void *array_remove(struct ArrayList *list, size_t index)
 {
     if (list == NULL)
     {
@@ -128,7 +128,7 @@ void *array_remove(struct ArrayList *list, int index)
     return elem;
 }
 
-void array_add(struct ArrayList *list, void *elem, int index)
+void array_add(struct ArrayList *list, void *elem, size_t index)
 {
     if (list == NULL)
     {
@@ -159,7 +159,39 @@ void array_add(struct ArrayList *list, void *elem, int index)
     list->size++;
 }
 
-void *array_get(struct ArrayList *list, int index)
+void array_put(struct ArrayList *list, void *elem, size_t index)
+{
+    if (list == NULL)
+    {
+        return;
+    }
+    if (index < 0 || index >= list->size)
+    {
+        return;
+    }
+    list->array[index] = elem;
+}
+
+void array_free(struct ArrayList *list, size_t index)
+{
+    if (list == NULL)
+    {
+        return;
+    }
+    if (index < 0 || index >= list->size)
+    {
+        return;
+    }
+    free(list->array[index]);
+}
+
+void array_replace(struct ArrayList *list, void *elem, size_t index)
+{
+    array_free(list, index);
+    array_put(list, elem, index);
+}
+
+void *array_get(struct ArrayList *list, size_t index)
 {
     if (list == NULL)
     {
