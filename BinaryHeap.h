@@ -37,4 +37,7 @@ size_t heap_size(BinaryHeap *heap);
 /* Apply function to elements of heap. */
 void heap_foreach(BinaryHeap *heap, void (*f)(void *));
 
+/* In-place heap sort. */
+void heap_sort(void *array, size_t nmemb, size_t size, int (*comp)(void *,void *));
+
 #endif /* BINARYHEAP_H */
