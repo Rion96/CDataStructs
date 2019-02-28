@@ -1,19 +1,37 @@
 CC=gcc
-CFLAGS= -Wall -g
-ARRAYLIST=./ArrayList.h ./ArrayList.c
-BINARYHEAP=./BinaryHeap.h ./BinaryHeap.c
-LINKEDLIST=./LinkedList.h ./LinkedList.c
-MATRIX=./Matrix.h ./Matrix.c
-IALLOC=./ialloc.h ./ialloc.c
+CDSDIR=./cds/
+TESTSDIR=./tests/
+CFLAGS= -Wall -g -I$(CDSDIR) -I$(TESTSDIR)
+ARRAYLIST=$(CDSDIR)ArrayList.h $(CDSDIR)ArrayList.c
+BINARYHEAP=$(CDSDIR)BinaryHeap.h $(CDSDIR)BinaryHeap.c $(CDSDIR)heap_sort.c
+LINKEDLIST=$(CDSDIR)LinkedList.h $(CDSDIR)LinkedList.c
+MATRIX=$(CDSDIR)Matrix.h $(CDSDIR)Matrix.c
+IALLOC=$(TESTSDIR)ialloc.h $(TESTSDIR)ialloc.c
+OBJECTS=ArrayList.o BinaryHeap.o LinkedList.o Matrix.o ialloc.o heap_sort.o
 
 .PHONY: all
 all: apsp dfs sort
 
-apsp: $(MATRIX) $(IALLOC) ./apsp.c
-	$(CC) $(CFLAGS) ./Matrix.c ./ialloc.c ./apsp.c -o $@
+apsp: $(OBJECTS) $(TESTSDIR)apsp.c
+	$(CC) $(CFLAGS) $(OBJECTS) $(TESTSDIR)apsp.c -o $@
 
-dfs: $(LINKEDLIST) $(ARRAYLIST) $(IALLOC) ./dfs.c
-	$(CC) $(CFLAGS) ./LinkedList.c ./ArrayList.c ./ialloc.c ./dfs.c -o $@
+dfs: $(OBJECTS) $(TESTSDIR)dfs.c
+	$(CC) $(CFLAGS) $(OBJECTS) $(TESTSDIR)dfs.c -o $@
 
-sort: $(BINARYHEAP) $(IALLOC) ./sort.c
-	$(CC) $(CFLAGS) ./BinaryHeap.c ./ialloc.c ./sort.c -o $@
+sort: $(OBJECTS) $(TESTSDIR)sort.c
+	$(CC) $(CFLAGS) $(OBJECTS) $(TESTSDIR)sort.c -o $@
+
+ialloc.o: $(IALLOC)
+	$(CC) $(CFLAGS) $(TESTSDIR)ialloc.c -c -o $@
+
+Matrix.o: $(MATRIX)
+	$(CC) $(CFLAGS) $(CDSDIR)Matrix.c -c -o $@
+
+LinkedList.o: $(LINKEDLIST)
+	$(CC) $(CFLAGS) $(CDSDIR)LinkedList.c -c -o $@
+
+BinaryHeap.o heap_sort.o: $(BINARYHEAP)
+	$(CC) $(CFLAGS) $(CDSDIR)BinaryHeap.c $(CDSDIR)heap_sort.c -c -o $@
+
+ArrayList.o: $(ARRAYLIST)
+	$(CC) $(CFLAGS) $(CDSDIR)ArrayList.c -c -o $@
