@@ -2,9 +2,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-struct LinkedList *linked_init(void *first_elem)
+LinkedList *linked_init(void *first_elem)
 {
-    struct LinkedList *list = malloc(sizeof(struct LinkedList));
+    LinkedList *list = malloc(sizeof(LinkedList));
     if (list == NULL)
     {
         fprintf(stderr, "Error: Could not initialize LinkedList struct!\n");
@@ -15,10 +15,10 @@ struct LinkedList *linked_init(void *first_elem)
     return list;
 }
 
-void linked_destroy(struct LinkedList **list)
+void linked_destroy(LinkedList **list)
 {
-    struct LinkedList *curr = *list;
-    struct LinkedList *next = NULL;
+    LinkedList *curr = *list;
+    LinkedList *next = NULL;
     while (curr != NULL)
     {
         next = curr->next;
@@ -28,15 +28,15 @@ void linked_destroy(struct LinkedList **list)
     *list = NULL;
 }
 
-void linked_append(struct LinkedList **list, void *elem)
+void linked_append(LinkedList **list, void *elem)
 {
-    struct LinkedList *curr = *list;
+    LinkedList *curr = *list;
     if (curr == NULL)
     {
         *list = linked_init(elem);
         return;
     }
-    struct LinkedList *node = malloc(sizeof(struct LinkedList));
+    LinkedList *node = malloc(sizeof(LinkedList));
     if (node == NULL)
     {
         fprintf(stderr, "Error: Could not allocate memory for LinkedList!\n");
@@ -51,9 +51,9 @@ void linked_append(struct LinkedList **list, void *elem)
     curr->next = node;
 }
 
-void linked_prepend(struct LinkedList **list, void *elem)
+void linked_prepend(LinkedList **list, void *elem)
 {
-    struct LinkedList *node = malloc(sizeof(struct LinkedList));
+    LinkedList *node = malloc(sizeof(LinkedList));
     if (node == NULL)
     {
         fprintf(stderr, "Error: Could not allocate memory for LinkedList!\n");
@@ -64,21 +64,21 @@ void linked_prepend(struct LinkedList **list, void *elem)
     *list = node;
 }
 
-void *linked_poll(struct LinkedList **list)
+void *linked_poll(LinkedList **list)
 {
     if (list == NULL)
     {
         return NULL;
     }
-    struct LinkedList *curr = *list;
-    struct LinkedList *next = curr->next;
+    LinkedList *curr = *list;
+    LinkedList *next = curr->next;
     void *elem = curr->elem;
     free(curr);
     *list = next;
     return elem;
 }
 
-void *linked_peek(struct LinkedList *list)
+void *linked_peek(LinkedList *list)
 {
     if (list == NULL)
     {
@@ -87,7 +87,7 @@ void *linked_peek(struct LinkedList *list)
     return list->elem;
 }
 
-void *linked_get(struct LinkedList *list, size_t index)
+void *linked_get(LinkedList *list, size_t index)
 {
     if (list == NULL)
     {
@@ -105,9 +105,9 @@ void *linked_get(struct LinkedList *list, size_t index)
     return list->elem;
 }
 
-void linked_add(struct LinkedList **list, void *elem, size_t index)
+void linked_add(LinkedList **list, void *elem, size_t index)
 {
-    struct LinkedList *curr = *list;
+    LinkedList *curr = *list;
     if (index == 0)
     {
         linked_prepend(list, elem);
@@ -121,7 +121,7 @@ void linked_add(struct LinkedList **list, void *elem, size_t index)
     {
         return;
     }
-    struct LinkedList *next = malloc(sizeof(struct LinkedList));
+    LinkedList *next = malloc(sizeof(LinkedList));
     if (next == NULL)
     {
         fprintf(stderr, "Error: Could not allocate memory for LinkedList!\n");
@@ -132,7 +132,7 @@ void linked_add(struct LinkedList **list, void *elem, size_t index)
     curr->next = next;
 }
 
-void linked_put(struct LinkedList *list, void *elem, size_t index)
+void linked_put(LinkedList *list, void *elem, size_t index)
 {
     while (list != NULL && index > 0)
     {
@@ -146,7 +146,7 @@ void linked_put(struct LinkedList *list, void *elem, size_t index)
     list->elem = elem;
 }
 
-void linked_free(struct LinkedList *list, size_t index)
+void linked_free(LinkedList *list, size_t index)
 {
     while (list != NULL && index > 0)
     {
@@ -160,15 +160,15 @@ void linked_free(struct LinkedList *list, size_t index)
     free(list->elem);
 }
 
-void linked_replace(struct LinkedList *list, void *elem, size_t index)
+void linked_replace(LinkedList *list, void *elem, size_t index)
 {
     linked_free(list, index);
     linked_put(list, elem, index);
 }
 
-void *linked_remove(struct LinkedList **list, size_t index)
+void *linked_remove(LinkedList **list, size_t index)
 {
-    struct LinkedList *curr = *list;
+    LinkedList *curr = *list;
     if (curr == NULL)
     {
         return NULL;
@@ -187,13 +187,13 @@ void *linked_remove(struct LinkedList **list, size_t index)
         return NULL;
     }
     void *elem = curr->next->elem;
-    struct LinkedList *next = curr->next->next;
+    LinkedList *next = curr->next->next;
     free(curr->next);
     curr->next = next;
     return elem;
 }
 
-size_t linked_length(struct LinkedList *list)
+size_t linked_length(LinkedList *list)
 {
     size_t length = 0;
     while (list != NULL)
@@ -204,7 +204,7 @@ size_t linked_length(struct LinkedList *list)
     return length;
 }
 
-void linked_foreach(struct LinkedList *list, void (*f)(void *elem))
+void linked_foreach(LinkedList *list, void (*f)(void *elem))
 {
     if (list == NULL || f == NULL)
     {

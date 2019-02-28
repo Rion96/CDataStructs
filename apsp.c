@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #define N 4
 /* Simple Floyd Warshall implementation to show Matrix structure */
-typedef struct Matrix Matrix;
 
 Matrix *dist; /* Distance Matrix */
 

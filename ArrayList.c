@@ -4,13 +4,13 @@
 #define MINSIZE 16 /* Minimum size for shrink operations to take place */
 #define FACTOR 2   /* Shrink/expand factor */
 
-struct ArrayList *array_init(size_t size)
+ArrayList *array_init(size_t size)
 {
-    if (size <= 0)
+    if (size == 0)
     {
         return NULL;
     }
-    struct ArrayList *list = malloc(sizeof(struct ArrayList));
+    ArrayList *list = malloc(sizeof(ArrayList));
     if (list == NULL)
     {
         fprintf(stderr, "Error: Could not initialize ArrayList struct!\n");
@@ -29,7 +29,7 @@ struct ArrayList *array_init(size_t size)
     return list;
 }
 
-void array_destroy(struct ArrayList *list)
+void array_destroy(ArrayList *list)
 {
     if (list == NULL)
     {
@@ -39,7 +39,7 @@ void array_destroy(struct ArrayList *list)
     free(list);
 }
 
-static void array_grow(struct ArrayList *list)
+static void array_grow(ArrayList *list)
 {
     if (list == NULL)
     {
@@ -55,7 +55,7 @@ static void array_grow(struct ArrayList *list)
     list->max_size *= FACTOR;
 }
 
-static void array_shrink(struct ArrayList *list)
+static void array_shrink(ArrayList *list)
 {
     if (list == NULL)
     {
@@ -76,7 +76,7 @@ static void array_shrink(struct ArrayList *list)
     list->max_size /= FACTOR;
 }
 
-void array_append(struct ArrayList *list, void *elem)
+void array_append(ArrayList *list, void *elem)
 {
     if (list == NULL)
     {
@@ -94,23 +94,23 @@ void array_append(struct ArrayList *list, void *elem)
     list->size++;
 }
 
-void array_prepend(struct ArrayList *list, void *elem)
+void array_prepend(ArrayList *list, void *elem)
 {
     array_add(list, elem, 0);
 }
 
-void *array_poll(struct ArrayList *list)
+void *array_poll(ArrayList *list)
 {
     return array_remove(list, 0);
 }
 
-void *array_remove(struct ArrayList *list, size_t index)
+void *array_remove(ArrayList *list, size_t index)
 {
     if (list == NULL)
     {
         return NULL;
     }
-    if (index < 0 || index >= list->size)
+    if (index >= list->size)
     {
         return NULL;
     }
@@ -128,13 +128,13 @@ void *array_remove(struct ArrayList *list, size_t index)
     return elem;
 }
 
-void array_add(struct ArrayList *list, void *elem, size_t index)
+void array_add(ArrayList *list, void *elem, size_t index)
 {
     if (list == NULL)
     {
         return;
     }
-    if (index < 0 || index > list->size)
+    if (index > list->size)
     {
         return;
     }
@@ -159,57 +159,57 @@ void array_add(struct ArrayList *list, void *elem, size_t index)
     list->size++;
 }
 
-void array_put(struct ArrayList *list, void *elem, size_t index)
+void array_put(ArrayList *list, void *elem, size_t index)
 {
     if (list == NULL)
     {
         return;
     }
-    if (index < 0 || index >= list->size)
+    if (index >= list->size)
     {
         return;
     }
     list->array[index] = elem;
 }
 
-void array_free(struct ArrayList *list, size_t index)
+void array_free(ArrayList *list, size_t index)
 {
     if (list == NULL)
     {
         return;
     }
-    if (index < 0 || index >= list->size)
+    if (index >= list->size)
     {
         return;
     }
     free(list->array[index]);
 }
 
-void array_replace(struct ArrayList *list, void *elem, size_t index)
+void array_replace(ArrayList *list, void *elem, size_t index)
 {
     array_free(list, index);
     array_put(list, elem, index);
 }
 
-void *array_get(struct ArrayList *list, size_t index)
+void *array_get(ArrayList *list, size_t index)
 {
     if (list == NULL)
     {
         return NULL;
     }
-    if (index < 0 || index >= list->size)
+    if (index >= list->size)
     {
         return NULL;
     }
     return list->array[index];
 }
 
-void *array_peek(struct ArrayList *list)
+void *array_peek(ArrayList *list)
 {
     return array_get(list, 0);
 }
 
-size_t array_length(struct ArrayList *list)
+size_t array_length(ArrayList *list)
 {
     if (list == NULL)
     {
@@ -218,7 +218,7 @@ size_t array_length(struct ArrayList *list)
     return list->size;
 }
 
-void array_foreach(struct ArrayList *list, void (*f)(void *e))
+void array_foreach(ArrayList *list, void (*f)(void *e))
 {
     if (list == NULL || f == NULL)
     {

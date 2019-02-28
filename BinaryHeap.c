@@ -4,13 +4,13 @@
 #define MINSIZE 16 /* Minimum size for shrink operations to take place */
 #define FACTOR 2   /* Shrink/expand factor */
 
-struct BinaryHeap *heap_init(size_t size, int (*comp)(void *, void *))
+BinaryHeap *heap_init(size_t size, int (*comp)(void *, void *))
 {
-    if (size <= 0 || comp == NULL)
+    if (size == 0 || comp == NULL)
     {
         return NULL;
     }
-    struct BinaryHeap *heap = malloc(sizeof(struct BinaryHeap));
+    BinaryHeap *heap = malloc(sizeof(BinaryHeap));
     if (heap == NULL)
     {
         fprintf(stderr, "Error: Could not initialize BinaryHeap structure!\n");
@@ -30,7 +30,7 @@ struct BinaryHeap *heap_init(size_t size, int (*comp)(void *, void *))
     return heap;
 }
 
-void heap_destroy(struct BinaryHeap *heap)
+void heap_destroy(BinaryHeap *heap)
 {
     if (heap == NULL)
     {
@@ -40,7 +40,7 @@ void heap_destroy(struct BinaryHeap *heap)
     free(heap);
 }
 
-static void sift_up(struct BinaryHeap *heap, int index)
+static void sift_up(BinaryHeap *heap, int index)
 {
     void **h = heap->array;
     while ((index - 1) / 2 >= 0)
@@ -59,7 +59,7 @@ static void sift_up(struct BinaryHeap *heap, int index)
     }
 }
 
-static void sift_down(struct BinaryHeap *heap, int index)
+static void sift_down(BinaryHeap *heap, int index)
 {
     void **h = heap->array;
     while (index * 2 + 1 < heap->size)
@@ -86,7 +86,7 @@ static void sift_down(struct BinaryHeap *heap, int index)
     }
 }
 
-static void heap_grow(struct BinaryHeap *heap)
+static void heap_grow(BinaryHeap *heap)
 {
     if (heap == NULL)
     {
@@ -102,7 +102,7 @@ static void heap_grow(struct BinaryHeap *heap)
     heap->max_size *= FACTOR;
 }
 
-static void heap_shrink(struct BinaryHeap *heap)
+static void heap_shrink(BinaryHeap *heap)
 {
     if (heap == NULL)
     {
@@ -123,7 +123,7 @@ static void heap_shrink(struct BinaryHeap *heap)
     heap->max_size /= FACTOR;
 }
 
-void heap_insert(struct BinaryHeap *heap, void *elem)
+void heap_insert(BinaryHeap *heap, void *elem)
 {
     if (heap == NULL)
     {
@@ -142,7 +142,7 @@ void heap_insert(struct BinaryHeap *heap, void *elem)
     heap->size++;
 }
 
-void *heap_peek(struct BinaryHeap *heap)
+void *heap_peek(BinaryHeap *heap)
 {
     if (heap == NULL)
     {
@@ -158,7 +158,7 @@ void *heap_peek(struct BinaryHeap *heap)
     }
 }
 
-void *heap_poll(struct BinaryHeap *heap)
+void *heap_poll(BinaryHeap *heap)
 {
     if (heap == NULL)
     {
@@ -181,7 +181,7 @@ void *heap_poll(struct BinaryHeap *heap)
     return elem;
 }
 
-size_t heap_size(struct BinaryHeap *heap)
+size_t heap_size(BinaryHeap *heap)
 {
     if (heap == NULL)
     {
@@ -190,7 +190,7 @@ size_t heap_size(struct BinaryHeap *heap)
     return heap->size;
 }
 
-void heap_foreach(struct BinaryHeap *heap, void (*f)(void *elem))
+void heap_foreach(BinaryHeap *heap, void (*f)(void *elem))
 {
     if (heap == NULL || f == NULL)
     {

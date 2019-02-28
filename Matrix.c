@@ -2,13 +2,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-struct Matrix *matrix_init(size_t rows, size_t cols)
+Matrix *matrix_init(size_t rows, size_t cols)
 {
-    if (rows <= 0 || cols <= 0)
+    if (rows == 0 || cols == 0)
     {
         return NULL;
     }
-    struct Matrix *matrix = malloc(sizeof(struct Matrix));
+    Matrix *matrix = malloc(sizeof(Matrix));
     if (matrix == NULL)
     {
         fprintf(stderr, "Error: Could not initialize Matrix struct!\n");
@@ -26,7 +26,7 @@ struct Matrix *matrix_init(size_t rows, size_t cols)
     return matrix;
 }
 
-void matrix_destroy(struct Matrix *matrix)
+void matrix_destroy(Matrix *matrix)
 {
     if (matrix == NULL)
     {
@@ -36,7 +36,7 @@ void matrix_destroy(struct Matrix *matrix)
     free(matrix);
 }
 
-void *matrix_get(struct Matrix *matrix, size_t row, size_t col)
+void *matrix_get(Matrix *matrix, size_t row, size_t col)
 {
     if (matrix == NULL)
     {
@@ -49,12 +49,12 @@ void *matrix_get(struct Matrix *matrix, size_t row, size_t col)
     return matrix->array[row * matrix->rows + col];
 }
 
-void matrix_free(struct Matrix *matrix, size_t row, size_t col)
+void matrix_free(Matrix *matrix, size_t row, size_t col)
 {
     free(matrix_get(matrix, row, col));
 }
 
-void matrix_put(struct Matrix *matrix, size_t row, size_t col, void *elem)
+void matrix_put(Matrix *matrix, size_t row, size_t col, void *elem)
 {
     if (matrix == NULL)
     {
@@ -67,13 +67,13 @@ void matrix_put(struct Matrix *matrix, size_t row, size_t col, void *elem)
     matrix->array[row * matrix->rows + col] = elem;
 }
 
-void matrix_replace(struct Matrix *matrix, size_t row, size_t col, void *elem)
+void matrix_replace(Matrix *matrix, size_t row, size_t col, void *elem)
 {
     matrix_free(matrix, row, col);
     matrix_put(matrix, row, col, elem);
 }
 
-void matrix_foreach(struct Matrix *matrix, void (*f)(void *elem))
+void matrix_foreach(Matrix *matrix, void (*f)(void *elem))
 {
     if (matrix == NULL || f == NULL)
     {

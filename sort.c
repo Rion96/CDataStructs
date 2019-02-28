@@ -5,7 +5,6 @@
 #include <time.h>
 #define N 16
 /* Simple "heapsort" implementation to show BinaryHeap structure. */
-typedef struct BinaryHeap BinaryHeap;
 
 BinaryHeap *heap; /* Binary Heap used for sorting. */
 
