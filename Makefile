@@ -2,11 +2,11 @@ CC=gcc
 CDSDIR=./cds/
 TESTSDIR=./tests/
 CFLAGS= -Wall -g -I$(CDSDIR) -I$(TESTSDIR)
-ARRAYLIST=$(CDSDIR)ArrayList.h $(CDSDIR)ArrayList.c
-BINARYHEAP=$(CDSDIR)BinaryHeap.h $(CDSDIR)BinaryHeap.c $(CDSDIR)heap_sort.c
-LINKEDLIST=$(CDSDIR)LinkedList.h $(CDSDIR)LinkedList.c
-MATRIX=$(CDSDIR)Matrix.h $(CDSDIR)Matrix.c
-IALLOC=$(TESTSDIR)ialloc.h $(TESTSDIR)ialloc.c
+ARRAYLIST=$(addprefix $(CDSDIR), ArrayList.h ArrayList.c)
+BINARYHEAP=$(addprefix $(CDSDIR), BinaryHeap.h BinaryHeap.c heap_sort.c)
+LINKEDLIST=$(addprefix $(CDSDIR), LinkedList.h LinkedList.c)
+MATRIX=$(addprefix $(CDSDIR), Matrix.h Matrix.c)
+IALLOC=$(addprefix $(TESTSDIR), ialloc.h ialloc.c)
 OBJECTS=ArrayList.o BinaryHeap.o LinkedList.o Matrix.o ialloc.o heap_sort.o
 
 .PHONY: all
@@ -31,7 +31,7 @@ LinkedList.o: $(LINKEDLIST)
 	$(CC) $(CFLAGS) $(CDSDIR)LinkedList.c -c -o $@
 
 BinaryHeap.o heap_sort.o: $(BINARYHEAP)
-	$(CC) $(CFLAGS) $(CDSDIR)BinaryHeap.c $(CDSDIR)heap_sort.c -c -o $@
+	$(CC) $(CFLAGS) $(CDSDIR)BinaryHeap.c $(CDSDIR)heap_sort.c -c
 
 ArrayList.o: $(ARRAYLIST)
 	$(CC) $(CFLAGS) $(CDSDIR)ArrayList.c -c -o $@
