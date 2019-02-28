@@ -3,15 +3,9 @@
 #include <stdio.h>
 /* in-place heap sort */
 
-static void sift_down(void *array, size_t nmemb, size_t size,
+static void sift_down(void *array, void *tmp, size_t nmemb, size_t size,
                         int (*comp)(void *, void *), int index)
 {
-    void *tmp = malloc(size);
-    if (tmp == NULL)
-    {
-        fprintf(stderr, "Error: Could not allocate memory for heap_sort sift_down operation!\n");
-        return;
-    }
     while (index * 2 + 1 < nmemb)
     {
         int child_index = index * 2 + 1;
@@ -40,7 +34,6 @@ static void sift_down(void *array, size_t nmemb, size_t size,
             break;
         }
     }
-    free(tmp);
 }
 
 void heap_sort(void *array, size_t nmemb, size_t size, int (*comp)(void *,void *))
@@ -54,7 +47,7 @@ void heap_sort(void *array, size_t nmemb, size_t size, int (*comp)(void *,void *
     /* Initialize as heap */
     for (int t = nmemb / 2 - 1; t >= 0; t--)
     {
-        sift_down(array, nmemb, size, comp, t);
+        sift_down(array, tmp, nmemb, size, comp, t);
     }
     /* Poll until heap is empty */
     while (nmemb > 0)
@@ -65,6 +58,7 @@ void heap_sort(void *array, size_t nmemb, size_t size, int (*comp)(void *,void *
         void *last_elem = (array + last_elem_offset);
         memcpy(array, last_elem, size);
         memcpy(last_elem, tmp, size);
-        sift_down(array, nmemb, size, comp, 0);
+        sift_down(array, tmp, nmemb, size, comp, 0);
     }
+    free(tmp);
 }

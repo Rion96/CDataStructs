@@ -9,8 +9,11 @@ MATRIX=$(addprefix $(CDSDIR), Matrix.h Matrix.c)
 IALLOC=$(addprefix $(TESTSDIR), ialloc.h ialloc.c)
 OBJECTS=ArrayList.o BinaryHeap.o LinkedList.o Matrix.o ialloc.o heap_sort.o
 
-.PHONY: all
+.PHONY: all library
 all: apsp dfs sort
+
+library: $(OBJECTS)
+	ar -rcs libcds.a $(OBJECTS)
 
 apsp: $(OBJECTS) $(TESTSDIR)apsp.c
 	$(CC) $(CFLAGS) $(OBJECTS) $(TESTSDIR)apsp.c -o $@
