@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
         printf("%d\n", ifree(heap_poll(heap)));
     }
     printf("In place heap sort using BinaryHeap's heap_sort():\n");
-    int values[16];
+    int values[N];
     for (int i = 0; i < N; i++)
     {
         values[i] = rand();

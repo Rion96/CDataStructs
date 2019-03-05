@@ -2,8 +2,9 @@
 Various data structures implemented in C.
 
 * ArrayList
-* LinkedList
 * BinaryHeap
+* BinaryTree
+* LinkedList
 * Matrix
 
 The data structures are implemented to work with void pointers. This way it is possible to use them for different data types. This is of course less than ideal, but making these data structures work with generics was a goal of mine.

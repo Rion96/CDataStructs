@@ -36,7 +36,7 @@ static void sift_down(void *array, void *tmp, size_t nmemb, size_t size,
     }
 }
 
-void heap_sort(void *array, size_t nmemb, size_t size, int (*comp)(void *,void *))
+void heap_sort(void *array, size_t nmemb, size_t size, int (*comp)(void *, void *))
 {
     void *tmp = malloc(size);
     if (tmp == NULL)

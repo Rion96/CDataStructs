@@ -125,7 +125,7 @@ static void heap_shrink(BinaryHeap *heap)
 
 void heap_insert(BinaryHeap *heap, void *elem)
 {
-    if (heap == NULL)
+    if (heap == NULL || elem == NULL)
     {
         return;
     }

@@ -17,6 +17,10 @@ LinkedList *linked_init(void *first_elem)
 
 void linked_destroy(LinkedList **list)
 {
+    if (list == NULL)
+    {
+        return;
+    }
     LinkedList *curr = *list;
     LinkedList *next = NULL;
     while (curr != NULL)
@@ -30,6 +34,10 @@ void linked_destroy(LinkedList **list)
 
 void linked_append(LinkedList **list, void *elem)
 {
+    if (list == NULL)
+    {
+        return;
+    }
     LinkedList *curr = *list;
     if (curr == NULL)
     {
@@ -53,6 +61,10 @@ void linked_append(LinkedList **list, void *elem)
 
 void linked_prepend(LinkedList **list, void *elem)
 {
+    if (list == NULL)
+    {
+        return;
+    }
     LinkedList *node = malloc(sizeof(LinkedList));
     if (node == NULL)
     {
@@ -107,6 +119,10 @@ void *linked_get(LinkedList *list, size_t index)
 
 void linked_add(LinkedList **list, void *elem, size_t index)
 {
+    if (list == NULL)
+    {
+        return;
+    }
     LinkedList *curr = *list;
     if (index == 0)
     {
@@ -168,6 +184,10 @@ void linked_replace(LinkedList *list, void *elem, size_t index)
 
 void *linked_remove(LinkedList **list, size_t index)
 {
+    if (list == NULL)
+    {
+        return NULL;
+    }
     LinkedList *curr = *list;
     if (curr == NULL)
     {
