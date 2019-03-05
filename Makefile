@@ -3,12 +3,13 @@ CDSDIR=./cds/
 TESTSDIR=./tests/
 CFLAGS= -Wall -g -I$(CDSDIR) -I$(TESTSDIR)
 ARRAYLIST=$(addprefix $(CDSDIR), ArrayList.h ArrayList.c)
+BIGINTEGER=$(addprefix $(CDSDIR), BigInteger.h BigInteger.c)
 BINARYHEAP=$(addprefix $(CDSDIR), BinaryHeap.h BinaryHeap.c heap_sort.c)
 BINARYTREE=$(addprefix $(CDSDIR), BinaryTree.h BinaryTree.c)
 LINKEDLIST=$(addprefix $(CDSDIR), LinkedList.h LinkedList.c)
 MATRIX=$(addprefix $(CDSDIR), Matrix.h Matrix.c)
 IALLOC=$(addprefix $(TESTSDIR), ialloc.h ialloc.c)
-OBJECTS=ArrayList.o BinaryHeap.o LinkedList.o Matrix.o ialloc.o heap_sort.o BinaryTree.o
+OBJECTS=ArrayList.o BinaryHeap.o LinkedList.o Matrix.o ialloc.o heap_sort.o BinaryTree.o BigInteger.o
 
 .PHONY: all library
 all: apsp dfs sort tree
@@ -18,6 +19,9 @@ library: $(OBJECTS)
 
 apsp: $(OBJECTS) $(TESTSDIR)apsp.c
 	$(CC) $(CFLAGS) $(OBJECTS) $(TESTSDIR)apsp.c -o $@
+
+bigints: $(OBJECTS) $(TESTSDIR)bigints.c
+	$(CC) $(CFLAGS) $(OBJECTS) $(TESTSDIR)bigints.c -o $@
 
 dfs: $(OBJECTS) $(TESTSDIR)dfs.c
 	$(CC) $(CFLAGS) $(OBJECTS) $(TESTSDIR)dfs.c -o $@
@@ -42,6 +46,9 @@ BinaryTree.o: $(BINARYTREE)
 
 BinaryHeap.o heap_sort.o: $(BINARYHEAP)
 	$(CC) $(CFLAGS) $(CDSDIR)BinaryHeap.c $(CDSDIR)heap_sort.c -c
+
+BigInteger.o: $(BIGINTEGER)
+	$(CC) $(CFLAGS) $(CDSDIR)BigInteger.c -c -o $@
 
 ArrayList.o: $(ARRAYLIST)
 	$(CC) $(CFLAGS) $(CDSDIR)ArrayList.c -c -o $@

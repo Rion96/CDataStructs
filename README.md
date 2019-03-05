@@ -2,6 +2,7 @@
 Various data structures implemented in C.
 
 * ArrayList
+* BigInteger
 * BinaryHeap
 * BinaryTree
 * LinkedList
