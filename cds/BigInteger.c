@@ -180,10 +180,6 @@ void bigint_add(BigInteger *a, BigInteger *b)
         }
         if (i == a->size)
         {
-            if (a->sign != b->sign)
-            {
-                a->sign = b->sign;
-            }
             a->size++;
         }
         total = a->num[i] + (i < b->size ? b->num[i] : 0) + carry;
@@ -256,6 +252,10 @@ void bigint_subtract(BigInteger *a, BigInteger *b)
     if (is_zero(a))
     {
         a->sign = false;
+    }
+    if (a->size * FACTOR < a->max_size && a->max_size > MINSIZE)
+    {
+        bigint_shrink(a);
     }
 }
 
